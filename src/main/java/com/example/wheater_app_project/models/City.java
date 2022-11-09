@@ -12,5 +12,4 @@ public class City {
     private String cityName;
     @ManyToMany
     private List<User> users;
-
 }

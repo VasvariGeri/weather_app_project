@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.IOException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -35,6 +37,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UsernameTakenException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     private ErrorDTO handleUsernameTakenException(RuntimeException e){
+        return new ErrorDTO(e.getMessage());
+    }
+
+    @ExceptionHandler(WrongObjectMappingException.class)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    private ErrorDTO handleWrongObjectMappingException(IOException e){
+        return new ErrorDTO(e.getMessage());
+    }
+
+    @ExceptionHandler(RequestInterruptedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    private ErrorDTO handleWrongObjectMappingException(InterruptedException e){
         return new ErrorDTO(e.getMessage());
     }
 }
